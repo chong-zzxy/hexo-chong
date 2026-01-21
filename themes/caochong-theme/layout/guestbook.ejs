@@ -1,0 +1,357 @@
+<style>
+  .guestbook-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 20px 60px;
+    min-height: calc(100vh - 180px);
+  }
+
+  .guestbook-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .guestbook-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+  }
+
+  .guestbook-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .guestbook-container {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .guestbook-form {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .form-group {
+    margin-bottom: 25px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .form-group label .required {
+    color: #ef4444;
+    margin-left: 4px;
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(49, 126, 251, 0.1);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.6;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 14px 32px;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(49, 126, 251, 0.3);
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(49, 126, 251, 0.4);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .guestbook-messages {
+    margin-top: 50px;
+  }
+
+  .messages-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .messages-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .message-item {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .message-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+  }
+
+  .message-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .message-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+  }
+
+  .message-name {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .message-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .message-content {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .message-placeholder {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+  }
+
+  .message-placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.3;
+  }
+
+  @media (max-width: 768px) {
+    .guestbook-page {
+      padding: 80px 15px 40px;
+    }
+
+    .guestbook-container {
+      padding: 25px;
+      border-radius: 16px;
+    }
+
+    .guestbook-header h1 {
+      font-size: 2rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<main class="guestbook-page">
+  <div class="guestbook-header">
+    <h1>📝 留言板</h1>
+    <p>
+      欢迎来到我的博客！<br>
+      在这里留下你的足迹，分享你的想法和建议吧~
+    </p>
+  </div>
+
+  <div class="guestbook-container">
+    <!-- 留言表单 -->
+    <form class="guestbook-form" id="guestbook-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="guest-name">
+            昵称
+            <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="guest-name"
+            class="form-input"
+            placeholder="请输入你的昵称"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="guest-email">
+            邮箱
+          </label>
+          <input
+            type="email"
+            id="guest-email"
+            class="form-input"
+            placeholder="your@email.com (可选)"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="guest-website">
+          网站
+        </label>
+        <input
+          type="url"
+          id="guest-website"
+          class="form-input"
+          placeholder="https://yourwebsite.com (可选)"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="guest-message">
+          留言内容
+          <span class="required">*</span>
+        </label>
+        <textarea
+          id="guest-message"
+          class="form-textarea"
+          placeholder="写下你想说的话..."
+          required
+        ></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        发送留言
+      </button>
+    </form>
+
+    <!-- 留言列表 -->
+    <div class="guestbook-messages">
+      <div class="messages-header">
+        <h2>💬 最新留言</h2>
+      </div>
+
+      <div id="messages-list">
+        <div class="message-placeholder">
+          <div class="message-placeholder-icon">💭</div>
+          <p>还没有留言，快来抢沙发吧！</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  // 留言表单处理
+  document.getElementById('guestbook-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('guest-name').value.trim();
+    const email = document.getElementById('guest-email').value.trim();
+    const website = document.getElementById('guest-website').value.trim();
+    const message = document.getElementById('guest-message').value.trim();
+
+    if (!name || !message) {
+      alert('请填写昵称和留言内容！');
+      return;
+    }
+
+    // 显示提示信息
+    alert('感谢您的留言！\n\n由于当前使用静态博客，留言功能暂未完全实现。\n您可以选择：\n1. 通过邮箱联系我：441046702@qq.com\n2. 在 GitHub 上提交 Issue\n3. 等待后续集成评论系统');
+
+    // 清空表单
+    this.reset();
+  });
+
+  /**
+   * 留言系统集成说明
+   *
+   * 当前使用 Hexo 静态博客，留言功能需要第三方服务支持。
+   *
+   * 推荐方案：
+   * 1. Valine - 基于 LeanCloud 的无后端评论系统
+   *    - 轻量级，支持 Markdown
+   *    - 免费，响应式设计
+   *    - 安装: https://valine.js.org/quickstart.html
+   *
+   * 2. Gitalk - 基于 GitHub Issues 的评论插件
+   *    - 利用 GitHub Issues 存储留言
+   *    - 支持 Markdown，代码高亮
+   *    - 需要 GitHub OAuth App
+   *
+   * 3. Utterances - 轻量级 GitHub Issues 评论系统
+   *    - 开源，无追踪
+   *    - 自动同步到 GitHub Issues
+   *    - 安装简单
+   *
+   * 4. Waline - Valine 的进化版
+   *    - 支持多种数据库
+   *    - 评论管理后台
+   *    - 邮件通知
+   *
+   * 实现步骤：
+   * 1. 选择评论系统并注册
+   * 2. 获取 API 密钥/配置参数
+   * 3. 在主题配置中添加对应配置
+   * 4. 在此页面引入评论系统的脚本
+   * 5. 初始化评论组件
+   */
+</script>

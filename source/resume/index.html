@@ -1,0 +1,589 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>曹冲的简历 | AI算法工程师</title>
+<meta name="description" content="曹冲 - AI算法工程师，专注于计算机视觉与自然语言处理">
+<link rel="icon" href="/img/favicon.svg">
+<style>
+:root {
+  --primary: #317EFB;
+  --primary-dark: #2563eb;
+  --accent: #60a5fa;
+  --blue: #317EFB;
+  --text: #2c3e50;
+  --text-light: #5a6c7d;
+  --bg: #ffffff;
+  --bg-gray: #f8f9fa;
+  --border: #e0e6ed;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  line-height: 1.7;
+  color: var(--text);
+  background: #f5f7fa;
+  min-height: 100vh;
+  padding: 30px 15px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Card */
+.header-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  border: 4px solid var(--primary);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.header-card h1 {
+  font-size: 32px;
+  color: var(--text);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.header-card .subtitle {
+  font-size: 18px;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.contact-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: var(--bg-gray);
+  transition: all 0.3s ease;
+}
+
+.contact-links a:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Main Content */
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Section Card */
+.section-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  border-radius: 2px;
+}
+
+/* Timeline */
+.timeline-item {
+  position: relative;
+  padding-left: 32px;
+  padding-bottom: 32px;
+  border-left: 2px solid var(--border);
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+  border-left-color: transparent;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 4px white, 0 0 0 6px var(--primary);
+}
+
+.timeline-date {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.timeline-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.timeline-subtitle {
+  font-size: 15px;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+.timeline-desc {
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 1.8;
+}
+
+.timeline-desc ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.timeline-desc li {
+  margin-bottom: 6px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tag {
+  font-size: 12px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  color: var(--primary);
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* Sidebar */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.info-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.info-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-list {
+  list-style: none;
+}
+
+.info-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-list li:last-child {
+  border-bottom: none;
+}
+
+.info-list li::before {
+  content: '▪';
+  color: var(--primary);
+  font-size: 18px;
+}
+
+.skill-rating {
+  margin-left: auto;
+  color: var(--primary);
+  font-size: 12px;
+}
+
+/* Back Button */
+.back-btn {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  background: white;
+  color: var(--primary);
+  padding: 10px 20px;
+  border-radius: 24px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  color: var(--primary-dark);
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+  .back-btn {
+    display: none;
+  }
+  .section-card {
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    order: -1;
+  }
+
+  .back-btn {
+    position: static;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 15px 10px;
+  }
+
+  .header-card {
+    padding: 24px;
+  }
+
+  .header-card h1 {
+    font-size: 24px;
+  }
+
+  .section-card {
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<a href="/" class="back-btn">← 返回首页</a>
+
+<div class="container">
+  <!-- Header Card -->
+  <div class="header-card">
+    <img src="/img/avatar.jpg" alt="曹冲" class="avatar">
+    <h1>曹冲 Caochong</h1>
+    <p class="subtitle">AI算法工程师 | 计算机视觉 & 自然语言处理</p>
+    <div class="contact-links">
+      <a href="mailto:441046702@qq.com">📧 441046702@qq.com</a>
+      <a href="https://github.com/chong-zzxy" target="_blank">🐙 GitHub</a>
+      <a href="https://space.bilibili.com/271039719" target="_blank">📺 BiliBili</a>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <!-- Main Content -->
+    <div class="main-content">
+
+      <!-- 工作经验 -->
+      <div class="section-card">
+        <h2 class="section-title">💼 工作经验</h2>
+
+        <div class="timeline-item">
+          <span class="timeline-date">2023.05 - 至今</span>
+          <div class="timeline-title">AI算法工程师</div>
+          <div class="timeline-subtitle">上海金桥信息股份有限公司 - 研发中心</div>
+          <div class="timeline-desc">
+            <ul>
+              <li>负责计算机视觉与自然语言处理相关算法研发与优化</li>
+              <li>负责目标检测、图像分类等CV任务的模型训练与部署</li>
+              <li>参与目标跟踪算法的设计与开发</li>
+              <li>开发NLP相关应用，包括语义理解、会议洞察等模块</li>
+              <li>优化深度学习模型性能，提升推理速度和精度</li>
+              <li>参与数据标注、模型评估和项目落地全流程</li>
+            </ul>
+          </div>
+          <div class="tags">
+            <span class="tag">PyTorch</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">NLP</span>
+            <span class="tag">YOLO</span>
+            <span class="tag">Transformers</span>
+          </div>
+        </div>
+
+        <!-- <div class="timeline-item">
+          <span class="timeline-date">2021.07 - 2023.06</span>
+          <div class="timeline-title">算法实习生 / 初级工程师</div>
+          <div class="timeline-subtitle">互联网公司 - 技术部</div>
+          <div class="timeline-desc">
+            <ul>
+              <li>参与深度学习项目开发，协助完成数据处理和模型训练</li>
+              <li>学习并实践目标检测、图像处理等CV算法</li>
+              <li>参与NLP任务的数据标注和模型调优工作</li>
+              <li>协助搭建训练环境和部署推理服务</li>
+            </ul>
+          </div>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">数据处理</span>
+            <span class="tag">模型训练</span>
+          </div>
+        </div> -->
+      </div>
+
+      <!-- 项目经历 -->
+      <div class="section-card">
+        <h2 class="section-title">🚀 项目经历</h2>
+
+        <div class="timeline-item">
+          <span class="timeline-date">2023.01 - 至今</span>
+          <div class="timeline-title">目标检测与图像处理系统</div>
+          <div class="timeline-subtitle">核心开发者</div>
+          <div class="timeline-desc">
+            <p><strong>项目描述：</strong>基于深度学习的目标检测与图像处理系统，应用于实际业务场景。</p>
+            <ul>
+              <li>实现基于YOLO系列的目标检测算法，支持多类别物体识别</li>
+              <li>开发图像预处理和后处理模块，提升检测效果</li>
+              <li>优化模型推理性能，实现实时检测</li>
+              <li>参与数据标注、模型训练、调优全流程</li>
+            </ul>
+          </div>
+          <div class="tags">
+            <span class="tag">YOLO</span>
+            <span class="tag">目标检测</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">图像处理</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="timeline-date">2023.05 - 2023.12</span>
+          <div class="timeline-title">教授跟踪及行为分析</div>
+          <div class="timeline-subtitle">算法开发</div>
+          <div class="timeline-desc">
+            <p><strong>项目描述：</strong>高校教授的目标检测/识别/跟踪/分析。</p>
+            <ul>
+              <li>使用YOLO、deepocsort等视觉模型进行人物检测及跟踪</li>
+              <li>设计开发教授特征提取及身份区分模块</li>
+              <li>实现模型微调和性能优化</li>
+              <li>参与教授行为分析</li>
+            </ul>
+          </div>
+          <div class="tags">
+            <span class="tag">NLP</span>
+            <span class="tag">BERT</span>
+            <span class="tag">跟踪及行为识别</span>
+            <span class="tag">Transformers</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 教育经历 -->
+      <div class="section-card">
+        <h2 class="section-title">🎓 教育经历</h2>
+
+        <div class="timeline-item">
+          <span class="timeline-date">2020.10 - 2022.12</span>
+          <div class="timeline-title">硕士研究生 - 电子信息（计算机）</div>
+          <div class="timeline-subtitle">研究方向：目标检测</div>
+          <div class="timeline-desc">
+            <ul>
+              <li>主要研究方向：计算机视觉、目标检测、图像处理</li>
+              <li>完成多个深度学习相关课程项目</li>
+              <li>参与导师的科研项目，积累实践经验</li>
+              <li>学习PyTorch、TensorFlow等深度学习框架</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="timeline-date">2016.09 - 2020.06</span>
+          <div class="timeline-title">本科 - 信息管理与信息系统</div>
+          <div class="timeline-subtitle">扎实的计算机基础</div>
+          <div class="timeline-desc">
+            <ul>
+              <li>主修课程：数据结构、算法设计等</li>
+              <li>学习掌握C++、Python、Java等编程语言</li>
+              <li>学习机器学习基础知识</li>
+              <li>毕业设计：基于集成学习的房源定价影响因素分析</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- 编程语言 -->
+      <div class="info-card">
+        <h3>💻 编程语言</h3>
+        <ul class="info-list">
+          <li>Python <span class="skill-rating">⭐⭐⭐⭐⭐</span></li>
+          <li>C++ <span class="skill-rating">⭐⭐⭐⭐</span></li>
+          <li>Java <span class="skill-rating">⭐⭐⭐</span></li>
+          <li>JavaScript <span class="skill-rating">⭐⭐⭐</span></li>
+        </ul>
+      </div>
+
+      <!-- 深度学习框架 -->
+      <div class="info-card">
+        <h3>🧠 深度学习</h3>
+        <ul class="info-list">
+          <li>PyTorch <span class="skill-rating">⭐⭐⭐⭐⭐</span></li>
+          <li>TensorFlow <span class="skill-rating">⭐⭐⭐⭐</span></li>
+          <li>Keras <span class="skill-rating">⭐⭐⭐</span></li>
+          <li>ONNX <span class="skill-rating">⭐⭐⭐</span></li>
+        </ul>
+      </div>
+
+      <!-- 专业领域 -->
+      <div class="info-card">
+        <h3>🎯 专业领域</h3>
+        <ul class="info-list">
+          <li>目标检测 (YOLO)</li>
+          <li>图像分割 (U-Net)</li>
+          <li>图像分类与识别</li>
+          <li>NLP文本处理</li>
+          <li>Transformers</li>
+        </ul>
+      </div>
+
+      <!-- 开发工具 -->
+      <div class="info-card">
+        <h3>🛠️ 开发工具</h3>
+        <ul class="info-list">
+          <li>Git / GitHub</li>
+          <li>Linux / Ubuntu</li>
+          <li>Docker</li>
+          <li>Jupyter Notebook</li>
+          <li>VSCode / PyCharm</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!-- 全屏 Hero 区域 -->
+<section class="landing-hero">
+  <!-- 神经网络 Canvas 背景 -->
+  <canvas id="neural-canvas" class="particles-bg"></canvas>
+
+  <!-- 流体梯度色块 -->
+  <div class="fluid-blob fluid-blob-1"></div>
+  <div class="fluid-blob fluid-blob-2"></div>
+  <div class="fluid-blob fluid-blob-3"></div>
+
+  <div class="hero-content-wrapper">
+    <div class="hero-avatar-container">
+      <img src="<%= url_for(theme.site.avatar) %>" alt="<%= theme.site.name %>" class="landing-avatar">
+      <div class="avatar-ring"></div>
+      <div class="avatar-ring-2"></div>
+    </div>
+
+    <h1 class="landing-title">
+      <span class="greeting">Hi, I'm </span>
+      <span class="name"><%= theme.site.name %></span>
+    </h1>
+
+    <div class="typewriter-container">
+      <span class="typewriter-text" id="typewriter"></span>
+      <span class="typewriter-cursor">_</span>
+    </div>
+
+    <div class="hero-social-links">
+      <% for (let name in theme.social) { %>
+        <a href="<%= theme.social[name] %>"
+           class="hero-social-link"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="<%= name %>">
+          <span><%= name %></span>
+        </a>
+      <% } %>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-arrow"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </div>
+</section>
+
+<!-- 统计数据区域 -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card" data-count="<%= site.posts.length %>">
+        <div class="stat-icon">📝</div>
+        <div class="stat-number" data-target="<%= site.posts.length %>">0</div>
+        <div class="stat-label">Articles</div>
+      </div>
+
+      <div class="stat-card" data-count="<%= site.categories.length %>">
+        <div class="stat-icon">📁</div>
+        <div class="stat-number" data-target="<%= site.categories.length %>">0</div>
+        <div class="stat-label">Categories</div>
+      </div>
+
+      <div class="stat-card" data-count="<%= site.tags.length %>">
+        <div class="stat-icon">🏷️</div>
+        <div class="stat-number" data-target="<%= site.tags.length %>">0</div>
+        <div class="stat-label">Tags</div>
+      </div>
+
+      <div class="stat-card" data-count="<%= new Date().getFullYear() - 2021 %>">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-number" data-target="<%= new Date().getFullYear() - 2021 %>">0</div>
+        <div class="stat-label">Years</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 技能标签云 -->
+<section class="skills-section">
+  <div class="container">
+    <h2 class="section-title-landing">
+      <span class="title-text">Tech Stack</span>
+    </h2>
+
+    <div class="skills-cloud">
+      <%
+        const skills = [
+          { name: 'PyTorch', level: 5 },
+          { name: 'Computer Vision', level: 5 },
+          { name: 'NLP', level: 4 },
+          { name: 'Python', level: 5 },
+          { name: 'Deep Learning', level: 5 },
+          { name: 'YOLO', level: 4 },
+          { name: 'Transformer', level: 4 },
+          { name: 'OpenCV', level: 4 },
+          { name: 'TensorFlow', level: 3 },
+          { name: 'Git', level: 4 },
+          { name: 'Linux', level: 4 },
+          { name: 'Docker', level: 3 }
+        ];
+      %>
+      <% skills.forEach(function(skill) { %>
+        <span class="skill-tag" data-level="<%= skill.level %>">
+          <%= skill.name %>
+        </span>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- 精选内容 -->
+<section class="featured-section">
+  <div class="container">
+    <h2 class="section-title-landing">
+      <span class="title-text">Featured Posts</span>
+    </h2>
+
+    <div class="featured-grid">
+      <%
+        var featuredPosts = site.posts.sort('date', -1).limit(3);
+        featuredPosts.each(function(post) {
+      %>
+        <article class="featured-card">
+          <% if (post.cover) { %>
+            <div class="featured-cover">
+              <a href="<%= url_for(post.path) %>">
+                <img src="<%= url_for(post.cover) %>" alt="<%= post.title %>" loading="lazy">
+              </a>
+              <div class="featured-overlay"></div>
+            </div>
+          <% } %>
+
+          <div class="featured-content">
+            <% if (post.categories && post.categories.length) { %>
+              <a href="<%= url_for(post.categories.data[0].path) %>" class="featured-category">
+                <%= post.categories.data[0].name %>
+              </a>
+            <% } %>
+
+            <h3 class="featured-title">
+              <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+            </h3>
+
+            <% if (post.description || post.excerpt) { %>
+              <p class="featured-excerpt">
+                <%= strip_html(post.description || post.excerpt).substring(0, 100) %>...
+              </p>
+            <% } %>
+
+            <div class="featured-meta">
+              <time><%= post.date.format('YYYY-MM-DD') %></time>
+              <span class="featured-dot">•</span>
+              <span><%= Math.ceil(strip_html(post.content).length / 400) %> min read</span>
+            </div>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- 快速导航 -->
+<section class="quick-nav-section">
+  <div class="container">
+    <h2 class="section-title-landing">
+      <span class="title-text">Explore More</span>
+    </h2>
+
+    <div class="quick-nav-grid">
+      <a href="<%= url_for('/blog/') %>" class="quick-nav-card">
+        <div class="nav-icon">📚</div>
+        <h3>Blog</h3>
+        <p>技术文章与学习笔记</p>
+        <div class="nav-arrow">→</div>
+      </a>
+
+      <a href="<%= url_for('/gallery/') %>" class="quick-nav-card">
+        <div class="nav-icon">📷</div>
+        <h3>Gallery</h3>
+        <p>摄影作品与光影记录</p>
+        <div class="nav-arrow">→</div>
+      </a>
+
+      <a href="<%= url_for('/about/') %>" class="quick-nav-card">
+        <div class="nav-icon">👨‍💻</div>
+        <h3>About</h3>
+        <p>关于我的更多信息</p>
+        <div class="nav-arrow">→</div>
+      </a>
+
+      <a href="<%= url_for('/guestbook/') %>" class="quick-nav-card">
+        <div class="nav-icon">💬</div>
+        <h3>Guestbook</h3>
+        <p>留下你的足迹</p>
+        <div class="nav-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 最新文章时间线 -->
+<section class="recent-posts-section">
+  <div class="container">
+    <h2 class="section-title-landing">
+      <span class="title-text">Recent Articles</span>
+    </h2>
+
+    <div class="recent-timeline">
+      <%
+        var recentPosts = site.posts.sort('date', -1).limit(5);
+        recentPosts.each(function(post) {
+      %>
+        <div class="timeline-post">
+          <time class="timeline-date"><%= post.date.format('MM-DD') %></time>
+          <div class="timeline-content">
+            <h4 class="timeline-title">
+              <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+            </h4>
+            <% if (post.categories && post.categories.length) { %>
+              <span class="timeline-category"><%= post.categories.data[0].name %></span>
+            <% } %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <div class="view-all-link">
+      <a href="<%= url_for('/archives/') %>" class="btn-view-all">
+        View All Articles
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

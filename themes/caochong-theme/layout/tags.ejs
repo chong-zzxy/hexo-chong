@@ -1,0 +1,55 @@
+<!-- 标签索引页 -->
+<div class="tags-container">
+  <!-- 页面头部 -->
+  <div class="tags-header">
+    <h1 class="tags-title">
+      <span class="title-text">标签云</span>
+      <span class="title-subtitle">Tags Cloud</span>
+    </h1>
+    <p class="tags-description">
+      共 <%= site.tags.length %> 个标签，<%= site.posts.length %> 篇文章
+    </p>
+  </div>
+
+  <!-- 标签云可视化 -->
+  <div class="tags-cloud-visual">
+    <%
+      var tags = site.tags.sort('name');
+      var maxCount = 0;
+      tags.each(function(tag) {
+        if (tag.length > maxCount) maxCount = tag.length;
+      });
+
+      tags.each(function(tag) {
+        var size = Math.floor((tag.length / maxCount) * 4) + 1;
+        var opacity = 0.6 + (tag.length / maxCount) * 0.4;
+    %>
+      <a href="<%= url_for(tag.path) %>"
+         class="tag-cloud-visual-item"
+         data-size="<%= size %>"
+         style="opacity: <%= opacity %>">
+        <span class="tag-name"><%= tag.name %></span>
+        <span class="tag-count"><%= tag.length %></span>
+      </a>
+    <% }); %>
+  </div>
+
+  <!-- 标签列表 -->
+  <div class="tags-list-section">
+    <h2 class="section-subtitle">所有标签</h2>
+    <div class="tags-grid">
+      <% tags.each(function(tag) { %>
+        <a href="<%= url_for(tag.path) %>" class="tag-card">
+          <div class="tag-card-icon">#</div>
+          <div class="tag-card-content">
+            <h3 class="tag-card-name"><%= tag.name %></h3>
+            <p class="tag-card-count"><%= tag.length %> 篇文章</p>
+          </div>
+          <svg class="tag-card-arrow" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+</div>

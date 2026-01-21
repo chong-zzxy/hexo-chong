@@ -1,0 +1,271 @@
+<style>
+  .search-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 20px 60px;
+    min-height: calc(100vh - 180px);
+  }
+
+  .search-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .search-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+  }
+
+  .search-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+  }
+
+  .search-container {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 40px;
+  }
+
+  .search-box-page {
+    position: relative;
+    margin-bottom: 30px;
+  }
+
+  .search-input-page {
+    width: 100%;
+    padding: 18px 60px 18px 24px;
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    background: var(--bg-primary);
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+  }
+
+  .search-input-page:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(49, 126, 251, 0.1);
+  }
+
+  .search-icon-page {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    color: var(--text-secondary);
+    pointer-events: none;
+  }
+
+  .search-stats {
+    padding: 15px 24px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    margin-bottom: 30px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .search-stats.show {
+    display: flex;
+  }
+
+  .search-stats-text {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .search-result-item {
+    padding: 24px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.3s ease;
+  }
+
+  .search-result-item:last-child {
+    border-bottom: none;
+  }
+
+  .search-result-item:hover {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+  }
+
+  .search-result-title {
+    margin: 0 0 10px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .search-result-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .search-result-title a:hover {
+    color: var(--primary);
+  }
+
+  .search-result-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .search-result-category,
+  .search-result-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .search-result-content {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .search-result-content em {
+    background: rgba(49, 126, 251, 0.15);
+    color: var(--primary);
+    font-style: normal;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .search-empty {
+    text-align: center;
+    padding: 60px 20px;
+    display: none;
+  }
+
+  .search-empty.show {
+    display: block;
+  }
+
+  .search-empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.3;
+  }
+
+  .search-empty-text {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+  }
+
+  .ai-search-placeholder {
+    background: linear-gradient(135deg, rgba(49, 126, 251, 0.05) 0%, rgba(96, 165, 250, 0.05) 100%);
+    border: 2px dashed var(--primary);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .ai-search-placeholder h3 {
+    color: var(--primary);
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .ai-search-placeholder p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 768px) {
+    .search-page {
+      padding: 80px 15px 40px;
+    }
+
+    .search-container {
+      padding: 25px;
+      border-radius: 16px;
+    }
+
+    .search-header h1 {
+      font-size: 2rem;
+    }
+
+    .search-stats {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  }
+</style>
+
+<main class="search-page">
+  <div class="search-header">
+    <h1>🔍 Search</h1>
+    <p>探索博客中的所有内容</p>
+  </div>
+
+  <div class="search-container">
+    <div class="search-box-page">
+      <input
+        type="text"
+        id="search-input"
+        class="search-input-page"
+        placeholder="输入关键词搜索文章..."
+        autocomplete="off"
+      >
+      <svg class="search-icon-page" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+    </div>
+
+    <div class="search-stats" id="search-stats">
+      <span class="search-stats-text">
+        找到 <strong id="search-count">0</strong> 篇文章
+      </span>
+      <span class="search-stats-text">
+        耗时 <strong id="search-time">0</strong>ms
+      </span>
+    </div>
+
+    <ul class="search-results" id="search-results"></ul>
+
+    <div class="search-empty" id="search-empty">
+      <div class="search-empty-icon">📭</div>
+      <p class="search-empty-text">未找到相关文章</p>
+    </div>
+
+    <div class="ai-search-placeholder">
+      <h3>
+        <span>🤖</span>
+        <span>AI 智能问答</span>
+      </h3>
+      <p>未来将支持基于 AI 的智能搜索和问答功能，敬请期待...</p>
+    </div>
+  </div>
+</main>
+
+<script src="<%= url_for('/js/search.js') %>"></script>

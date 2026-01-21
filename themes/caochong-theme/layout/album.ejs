@@ -1,0 +1,271 @@
+<!-- 相册详情页 -->
+<div class="album-detail-container">
+  <!-- 相册头部 -->
+  <div class="album-detail-header">
+    <nav class="breadcrumb">
+      <a href="<%= url_for('/') %>">首页</a>
+      <span class="separator">/</span>
+      <a href="<%= url_for('/gallery/') %>">摄影作品</a>
+      <span class="separator">/</span>
+      <span class="current"><%= page.title %></span>
+    </nav>
+
+    <h1 class="album-detail-title"><%= page.title %></h1>
+
+    <% if (page.description) { %>
+      <p class="album-detail-description"><%= page.description %></p>
+    <% } %>
+
+    <div class="album-detail-meta">
+      <span class="meta-item">
+        <svg viewBox="0 0 24 24" width="18" height="18">
+          <path fill="currentColor" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10z"/>
+        </svg>
+        <%= page.date.format('YYYY年MM月DD日') %>
+      </span>
+
+      <% if (page.location) { %>
+        <span class="meta-item">
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          <%= page.location %>
+        </span>
+      <% } %>
+
+      <% if (page.photos && page.photos.length) { %>
+        <span class="meta-item">
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+          </svg>
+          共 <%= page.photos.length %> 张照片
+        </span>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- 照片网格 (瀑布流) -->
+  <% if (page.photos && page.photos.length > 0) { %>
+    <div class="photos-grid" id="photos-grid">
+      <% page.photos.forEach(function(photo, index) { %>
+        <div class="photo-item" data-index="<%= index %>">
+          <div class="photo-wrapper">
+            <img src="<%= url_for(photo.image) %>"
+                 alt="<%= photo.title || page.title %>"
+                 loading="lazy"
+                 class="photo-image">
+            <% if (photo.title || photo.description) { %>
+              <div class="photo-overlay">
+                <div class="photo-info">
+                  <% if (photo.title) { %>
+                    <h3 class="photo-title"><%= photo.title %></h3>
+                  <% } %>
+                  <% if (photo.description) { %>
+                    <p class="photo-description"><%= photo.description %></p>
+                  <% } %>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="no-photos">
+      <svg viewBox="0 0 24 24" width="64" height="64">
+        <path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+      </svg>
+      <p>该相册暂无照片</p>
+    </div>
+  <% } %>
+
+  <!-- 返回按钮 -->
+  <div class="back-to-gallery">
+    <a href="<%= url_for('/gallery/') %>" class="btn-back">
+      <svg viewBox="0 0 24 24" width="20" height="20">
+        <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+      </svg>
+      返回相册列表
+    </a>
+  </div>
+</div>
+
+<!-- Lightbox 灯箱 -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-overlay"></div>
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightbox-close">
+      <svg viewBox="0 0 24 24" width="32" height="32">
+        <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </svg>
+    </button>
+
+    <button class="lightbox-prev" id="lightbox-prev">
+      <svg viewBox="0 0 24 24" width="40" height="40">
+        <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </button>
+
+    <button class="lightbox-next" id="lightbox-next">
+      <svg viewBox="0 0 24 24" width="40" height="40">
+        <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    </button>
+
+    <div class="lightbox-image-wrapper">
+      <img src="" alt="" id="lightbox-image" class="lightbox-image">
+      <div class="lightbox-info">
+        <h3 class="lightbox-title" id="lightbox-title"></h3>
+        <p class="lightbox-description" id="lightbox-description"></p>
+      </div>
+    </div>
+
+    <div class="lightbox-counter" id="lightbox-counter">
+      <span id="current-index">1</span> / <span id="total-images">1</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Lightbox 功能
+(function() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxDescription = document.getElementById('lightbox-description');
+  const currentIndexEl = document.getElementById('current-index');
+  const totalImagesEl = document.getElementById('total-images');
+
+  const photos = <%- JSON.stringify(page.photos || []) %>;
+  let currentIndex = 0;
+
+  // 提取图片主色调
+  function extractDominantColor(img, callback) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // 使用小尺寸以提高性能
+    canvas.width = 50;
+    canvas.height = 50;
+
+    ctx.drawImage(img, 0, 0, 50, 50);
+
+    try {
+      const imageData = ctx.getImageData(0, 0, 50, 50);
+      const data = imageData.data;
+
+      let r = 0, g = 0, b = 0;
+      let count = 0;
+
+      // 采样像素并计算平均值
+      for (let i = 0; i < data.length; i += 4) {
+        r += data[i];
+        g += data[i + 1];
+        b += data[i + 2];
+        count++;
+      }
+
+      r = Math.floor(r / count);
+      g = Math.floor(g / count);
+      b = Math.floor(b / count);
+
+      // 调整亮度 - 提高到 25% 以获得更明亮的效果
+      const factor = 0.25;
+      r = Math.floor(r * factor);
+      g = Math.floor(g * factor);
+      b = Math.floor(b * factor);
+
+      callback(`rgba(${r}, ${g}, ${b}, 0.85)`);
+    } catch (e) {
+      // 如果提取失败（如跨域图片），使用默认颜色
+      callback('rgba(0, 0, 0, 0.85)');
+    }
+  }
+
+  // 更新灯箱内容
+  function updateLightbox(index) {
+    currentIndex = index;
+    const photo = photos[index];
+
+    lightboxImage.src = photo.image;
+    lightboxImage.alt = photo.title || '<%= page.title %>';
+    lightboxTitle.textContent = photo.title || '';
+    lightboxDescription.textContent = photo.description || '';
+    currentIndexEl.textContent = index + 1;
+    totalImagesEl.textContent = photos.length;
+
+    // 显示/隐藏信息
+    if (photo.title || photo.description) {
+      document.querySelector('.lightbox-info').style.display = 'block';
+    } else {
+      document.querySelector('.lightbox-info').style.display = 'none';
+    }
+
+    // 当图片加载完成后，提取主色调并更新背景
+    lightboxImage.onload = function() {
+      extractDominantColor(lightboxImage, function(color) {
+        const overlay = document.querySelector('.lightbox-overlay');
+        // 使用径向渐变 + 透明度，营造更通透的氛围感
+        overlay.style.background = `radial-gradient(circle at center, ${color} 0%, rgba(0, 0, 0, 0.88) 60%, rgba(0, 0, 0, 0.92) 100%)`;
+      });
+    };
+  }
+
+  // 打开灯箱
+  function openLightbox(index) {
+    updateLightbox(index);
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // 关闭灯箱
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // 上一张
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+    updateLightbox(currentIndex);
+  }
+
+  // 下一张
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % photos.length;
+    updateLightbox(currentIndex);
+  }
+
+  // 绑定事件 - 点击图片打开灯箱
+  console.log('初始化相册，照片数量:', photos.length);
+  const wrappers = document.querySelectorAll('.photo-wrapper');
+  console.log('找到的 photo-wrapper 数量:', wrappers.length);
+
+  wrappers.forEach(function(wrapper) {
+    const photoItem = wrapper.closest('.photo-item');
+    const index = parseInt(photoItem.getAttribute('data-index'));
+    console.log('绑定第', index, '张图片');
+
+    wrapper.addEventListener('click', function(e) {
+      console.log('点击了第', index, '张图片');
+      openLightbox(index);
+    });
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-prev').addEventListener('click', prevImage);
+  document.getElementById('lightbox-next').addEventListener('click', nextImage);
+
+  // 点击遮罩关闭
+  document.querySelector('.lightbox-overlay').addEventListener('click', closeLightbox);
+
+  // 键盘控制
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'ArrowRight') nextImage();
+  });
+})();
+</script>

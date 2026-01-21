@@ -1,0 +1,61 @@
+<!-- 分类索引页 -->
+<div class="categories-container">
+  <!-- 页面头部 -->
+  <div class="categories-header">
+    <h1 class="categories-title">
+      <span class="title-text">文章分类</span>
+      <span class="title-subtitle">Categories</span>
+    </h1>
+    <p class="categories-description">
+      共 <%= site.categories.length %> 个分类，<%= site.posts.length %> 篇文章
+    </p>
+  </div>
+
+  <!-- 分类网格 -->
+  <div class="categories-grid-page">
+    <%
+      site.categories.sort('name').each(function(category) {
+        var icon = '📁';
+        if (category.name.includes('CV') || category.name.includes('视觉')) icon = '👁️';
+        else if (category.name.includes('NLP') || category.name.includes('语言')) icon = '💬';
+        else if (category.name.includes('Python') || category.name.includes('编程')) icon = '💻';
+        else if (category.name.includes('Life') || category.name.includes('生活')) icon = '🌱';
+    %>
+      <article class="category-card-page">
+        <a href="<%= url_for(category.path) %>" class="category-link-page">
+          <!-- 分类图标 -->
+          <div class="category-icon-page"><%= icon %></div>
+
+          <!-- 分类信息 -->
+          <div class="category-info-page">
+            <h2 class="category-name-page"><%= category.name %></h2>
+            <p class="category-count-page"><%= category.length %> 篇文章</p>
+          </div>
+
+          <!-- 箭头 -->
+          <svg class="category-arrow-page" viewBox="0 0 24 24" width="32" height="32">
+            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+
+          <!-- 最新文章预览 -->
+          <%
+            var latestPosts = category.posts.sort('date', -1).limit(3);
+          %>
+          <% if (latestPosts.length > 0) { %>
+            <div class="category-preview-page">
+              <div class="preview-label">最新文章</div>
+              <ul class="preview-list">
+                <% latestPosts.each(function(post) { %>
+                  <li class="preview-item">
+                    <span class="preview-dot">•</span>
+                    <%= post.title %>
+                  </li>
+                <% }); %>
+              </ul>
+            </div>
+          <% } %>
+        </a>
+      </article>
+    <% }); %>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><%= theme.footer.copyright %></p>
+        <% if (theme.footer.icp) { %>
+          <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener"><%= theme.footer.icp %></a></p>
+        <% } %>
+      </div>
+
+      <div class="footer-social">
+        <% for (let name in theme.social) { %>
+          <a href="<%= theme.social[name] %>"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="<%= name %>"
+             class="social-link">
+            <%= name %>
+          </a>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="footer-powered">
+      <p>
+        Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+        | Theme by <a href="https://github.com/chong-zzxy" target="_blank" rel="noopener">Caochong</a>
+      </p>
+    </div>
+
+    <!-- 访问统计 -->
+    <% if (theme.busuanzi && theme.busuanzi.enable) { %>
+      <div class="footer-stats" id="site-stats">
+        <span id="busuanzi_container_site_pv" style="display:none">
+          👀 本站访问量 <span id="busuanzi_value_site_pv"></span> 次
+        </span>
+        <span class="stats-separator" style="display:none"> | </span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+          👤 访客数 <span id="busuanzi_value_site_uv"></span> 人
+        </span>
+        <span id="stats-loading" style="color: var(--text-secondary); font-size: 0.85rem;">
+          📊 正在加载访问统计...
+        </span>
+      </div>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <script>
+        // 监听不蒜子加载完成
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            var pv = document.getElementById('busuanzi_container_site_pv');
+            var uv = document.getElementById('busuanzi_container_site_uv');
+            var loading = document.getElementById('stats-loading');
+
+            if (pv && pv.style.display === 'none' && document.getElementById('busuanzi_value_site_pv').textContent) {
+              pv.style.display = 'inline-block';
+              document.querySelector('.stats-separator').style.display = 'inline-block';
+              uv.style.display = 'inline-block';
+              if (loading) loading.style.display = 'none';
+            }
+          }, 1000);
+
+          // 如果 3 秒后还没加载，显示提示
+          setTimeout(function() {
+            var loading = document.getElementById('stats-loading');
+            var pv = document.getElementById('busuanzi_container_site_pv');
+            if (loading && pv && pv.style.display === 'none') {
+              loading.textContent = '📊 访问统计（加载中...）';
+            }
+          }, 3000);
+        });
+      </script>
+    <% } %>
+  </div>
+</footer>

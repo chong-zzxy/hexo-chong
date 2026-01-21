@@ -1,0 +1,91 @@
+<!-- 摄影作品集页面 -->
+<div class="gallery-container">
+  <!-- 页面头部 -->
+  <div class="gallery-header">
+    <h1 class="gallery-title">
+      <span class="title-text">光影瞬间</span>
+      <span class="title-subtitle">Photography Gallery</span>
+    </h1>
+    <p class="gallery-description">
+      用镜头捕捉世界的美好，用光影记录生活的诗意
+    </p>
+  </div>
+
+  <!-- 相册网格 -->
+  <div class="albums-grid">
+    <%
+      // 获取所有 gallery 类型的页面
+      var galleries = site.pages.filter(function(page) {
+        return page.type === 'gallery';
+      }).sort('date', -1);
+
+      if (galleries.length > 0) {
+        galleries.each(function(gallery) {
+    %>
+      <article class="album-card">
+        <a href="<%= url_for(gallery.path) %>" class="album-link">
+          <!-- 封面图 -->
+          <div class="album-cover">
+            <% if (gallery.cover) { %>
+              <img src="<%= url_for(gallery.cover) %>" alt="<%= gallery.title %>" loading="lazy">
+            <% } else if (gallery.photos && gallery.photos.length > 0) { %>
+              <img src="<%= url_for(gallery.photos[0].image) %>" alt="<%= gallery.title %>" loading="lazy">
+            <% } else { %>
+              <div class="album-placeholder">
+                <svg viewBox="0 0 24 24" width="64" height="64">
+                  <path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                </svg>
+              </div>
+            <% } %>
+            <div class="album-overlay">
+              <div class="overlay-content">
+                <svg viewBox="0 0 24 24" width="48" height="48" class="view-icon">
+                  <path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                </svg>
+                <span class="view-text">查看相册</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 相册信息 -->
+          <div class="album-info">
+            <h2 class="album-title"><%= gallery.title %></h2>
+
+            <% if (gallery.description) { %>
+              <p class="album-description"><%= gallery.description %></p>
+            <% } %>
+
+            <div class="album-meta">
+              <span class="album-date">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="currentColor" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10z"/>
+                </svg>
+                <%= gallery.date.format('YYYY-MM-DD') %>
+              </span>
+
+              <% if (gallery.photos && gallery.photos.length > 0) { %>
+                <span class="album-count">
+                  <svg viewBox="0 0 24 24" width="16" height="16">
+                    <path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                  </svg>
+                  <%= gallery.photos.length %> 张照片
+                </span>
+              <% } %>
+            </div>
+          </div>
+        </a>
+      </article>
+    <%
+        });
+      } else {
+    %>
+      <div class="no-albums">
+        <svg viewBox="0 0 24 24" width="80" height="80">
+          <path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+        </svg>
+        <h3>暂无相册</h3>
+        <p>期待更多精彩作品...</p>
+      </div>
+    <% } %>
+  </div>
+</div>
