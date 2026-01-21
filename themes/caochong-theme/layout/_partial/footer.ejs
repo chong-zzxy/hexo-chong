@@ -11,8 +11,12 @@
       <div class="footer-social">
         <p class="footer-social-title">联系方式</p>
         <div class="footer-social-links">
-          <% for (let name in theme.social) { %>
-            <a href="<%= theme.social[name] %>"
+          <%
+            const socialLinks = theme.social || {};
+            Object.keys(socialLinks).forEach(function(name) {
+              const url = socialLinks[name];
+          %>
+            <a href="<%= url %>"
                target="_blank"
                rel="noopener noreferrer"
                aria-label="<%= name %>"
@@ -34,7 +38,7 @@
                 <span><%= name %></span>
               <% } %>
             </a>
-          <% } %>
+          <% }); %>
         </div>
       </div>
     </div>
