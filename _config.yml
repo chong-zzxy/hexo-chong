@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 
-subtitle: ''
-description: ''
-keywords: 
-author: 
-language: en
-timezone: ''
+title: 星唯向导
+subtitle: 'AI算法工程师的技术博客'
+description: 'AI算法工程师 | 计算机视觉 & 自然语言处理 | 深度学习实践者'
+keywords: AI, 计算机视觉, NLP, 深度学习, 机器学习, Python
+author: 曹冲
+language: zh-CN
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
