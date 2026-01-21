@@ -4443,24 +4443,24 @@ a:focus-visible {
 .skill-tag-compact {
   display: inline-block;
   padding: 6px 14px;
-  background: rgba(var(--primary-rgb), 0.1);
+  background: var(--primary-alpha-10);
   color: var(--primary);
   border-radius: 16px;
   font-size: 0.8125rem;
   font-weight: 500;
   transition: all 0.3s ease;
-  border: 1px solid rgba(var(--primary-rgb), 0.2);
+  border: 1px solid var(--primary-alpha-20);
 }
 
 .skill-tag-compact:hover {
   background: var(--primary);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+  box-shadow: 0 4px 12px var(--primary-alpha-30);
 }
 
 .skill-tag-compact[data-level="5"] {
-  background: rgba(var(--primary-rgb), 0.15);
+  background: rgba(49, 126, 251, 0.15);
   border-color: var(--primary);
 }
 
@@ -4498,7 +4498,7 @@ a:focus-visible {
 .featured-category-compact {
   display: inline-block;
   padding: 4px 10px;
-  background: rgba(var(--primary-rgb), 0.1);
+  background: var(--primary-alpha-10);
   color: var(--primary);
   border-radius: 12px;
   font-size: 0.75rem;
@@ -4573,5 +4573,60 @@ a:focus-visible {
   .skill-tag-compact {
     font-size: 0.75rem;
     padding: 5px 12px;
+  }
+}
+
+/* ========================================
+   Footer 社交链接优化
+   ======================================== */
+
+.footer-social-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+}
+
+.footer-social-links {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.footer-social-link:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--primary-alpha-30);
+}
+
+.footer-social-link svg {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .footer-social-links {
+    gap: var(--spacing-sm);
+  }
+
+  .footer-social-link {
+    width: 32px;
+    height: 32px;
   }
 }
