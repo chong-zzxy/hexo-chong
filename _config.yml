@@ -109,6 +109,5 @@ search:
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo:
-        github: git@github.com:chong-zzxy/chong-zzxy.github.io.git
+  repo: https://oauth2:a338f9b2fa2bbd697297f768734da955@gitee.com/cg9213/cg9213.git
   branch: master
